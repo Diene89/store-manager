@@ -1,10 +1,22 @@
+require('dotenv').config();
 const express = require('express');
+require('express-async-errors');
+
+const productsRoutes = require('./routes/productsRoutes');
 
 const app = express();
 
+app.use('/products', productsRoutes);
+
+app.use((err, _req, res, _next) => {
+  if (err) {
+    return res.status(404).json({ message: 'Product not found' });
+  }
+});
+
 // -> não remova esse endpoint, é para o avaliador funcionar
-app.get('/', (_request, response) => {
-  response.send();
+app.get('/', (_req, res) => {
+  res.send();
 });
 
 // não remova essa exportação, é para o avaliador funcionar
