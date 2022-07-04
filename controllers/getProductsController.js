@@ -10,7 +10,7 @@ const getProductsById = async (req, res) => {
   const productById = await productsService.getProductsById(id);
 
   if (!productById) {
-    throw new Error();
+    res.status(404).json({ message: 'Product not found' });
   }
   res.status(200).json(productById);
 };

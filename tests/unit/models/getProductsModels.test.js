@@ -11,27 +11,27 @@ describe('testando o models', () => {
   beforeEach(() => sinon.restore());
   describe('getProducts', () => {
     //caso positivo
-    it('Caso o banco devolva um array, a função deve retornar um array', () => {
+    it('Caso o banco devolva um array, a função deve retornar um array', async () => {
       sinon.stub(connection, 'query').resolves(listProducts);
-      expect(getProductsModels.getProducts()).to.eventually.deep.equal(listProducts)
+      expect(await getProductsModels.getProducts()).to.eventually.deep.equal(listProducts)
     })
     //caso negativo
-    it('Caso haja falha de conexão, o banco deve retornar um erro', () => {
+    it('Caso haja falha de conexão, o banco deve retornar um erro', async () => {
       sinon.stub(connection, 'query').rejects();
-      expect(getProductsModels.getProducts()).to.eventually.rejected;
+      expect(await getProductsModels.getProducts()).to.eventually.rejected;
     })
   });
 
   describe('getProductsById', () => {
     //caso positivo
-    it('Caso o banco devolva um objeto, a função deve retornar um objeto', () => {
+    it('Caso o banco devolva um objeto, a função deve retornar um objeto', async () => {
       sinon.stub(connection, 'query').resolves(product);
-      expect(getProductsModels.getProductsById(2)).to.eventually.deep.equal(product)
+      expect(await getProductsModels.getProductsById(2)).to.eventually.deep.equal(product)
     })
     //caso negativo
-    it('Caso o banco retorne um array, a função deve retornar undefined', () => {
+    it('Caso o banco retorne um array, a função deve retornar undefined', async () => {
       sinon.stub(connection, 'query').resolves([[]]);
-      expect(getProductsModels.getProductsById(2)).to.be.undefined;
+      expect(await getProductsModels.getProductsById(2)).to.be.undefined;
     })
   });
 });
