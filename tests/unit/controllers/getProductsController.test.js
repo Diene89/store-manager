@@ -7,7 +7,7 @@ const { listProducts, product } = require('../mocks/productsMock');
 
 use(chaiAsPromised);
 
-describe('', () => {
+describe('testando o controller', () => {
   beforeEach(() => sinon.restore());
   describe('', () => {
 
@@ -33,21 +33,21 @@ describe('', () => {
       req.params = { id: 2 };
 
       await getProductsController.getProductsById(req, res);
-
-      expect(res.status.calledWith(200)).to.be.true;
-      expect(res.status.calledWith(product)).to.be.true;
+      console.log('ma oe', res, req)
+      expect(res.status.calledWith(200)).to.be.eq(true);
+      expect(res.json.calledWith(product)).to.be.eq(true);
     })
 
-    it('', async () => {
-      sinon.stub(getProductsService, 'getProductsById').resolves(null);
-      const req = {};
-      const res = {};
-      res.sendStatus = sinon.stub();
-      req.params = { id: 10 };
+    // it('caso não ret', async () => {
+    //   sinon.stub(getProductsService, 'getProductsById').resolves(null);
+    //   const req = {};
+    //   const res = {};
+    //   res.sendStatus = sinon.stub();
+    //   req.params = { id: 10 };
 
-      await getProductsController.getProductsById(req, res);
+    //   await getProductsController.getProductsById(req, res);
 
-      expect(res.sendStatus.calledWith(404)).to.be.true;
-    });
+    //   expect(res.sendStatus.calledWith(404)).to.be.true;
+    // });
   })
 })

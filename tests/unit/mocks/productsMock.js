@@ -4,8 +4,8 @@ const products = {
     "name": "Martelo de Thor"
   }],
   product: {
-    "id": 2,
-    "name": "Traje de encolhimento"
+    id: 2,
+    name: "Traje de encolhimento"
   }
 };
 
