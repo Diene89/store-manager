@@ -11,22 +11,21 @@ describe('testando o service', () => {
   before(() => sinon.restore());
   
   describe('getProducts', () => {
-    it('', async () => {
+    it('', () => {
       sinon.stub(getProductsModels, 'getProducts').resolves(listProducts);
-      expect(await getProductsService.getProducts()).to.eventually.deep.equal(listProducts);
+      expect(getProductsService.getProducts()).to.eventually.deep.equal(listProducts);
     })
   })
 
   describe('getProductsById', () => {
-    it('', async () => {
+    it('', () => {
       sinon.stub(getProductsModels, 'getProductsById').resolves(product);
-      expect(await getProductsService.getProductsById(2)).to.eventually.deep.equal(product);
+      expect(getProductsService.getProductsById(2)).to.eventually.deep.equal(product);
     });
 
-    it('', async () => {
+    it('', () => {
       sinon.stub(getProductsModels, 'getProductsById').resolves(undefined);
-      await getProductsService.getProductsById(10).to.Throw
-      expect(await getProductsService.getProductsById(10)).to.Throw()
+      expect(getProductsService.getProductsById(10)).to.eventually.be.undefined;
     });
   })
 })

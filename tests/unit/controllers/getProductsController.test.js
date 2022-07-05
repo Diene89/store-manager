@@ -32,8 +32,8 @@ describe('', () => {
 
       await getProductsController.getProductsById(req, res);
 
-      expect(res.status.calledWith(200)).to.be.eq.true;
-      expect(res.status.calledWith(product)).to.be.eq.true;
+      expect(res.status.calledWith(200)).to.be.true;
+      expect(res.status.calledWith(product)).to.be.true;
     })
   })
 })
