@@ -10,6 +10,7 @@ use(chaiAsPromised);
 describe('', () => {
   beforeEach(() => sinon.restore());
   describe('', () => {
+
     it('caso o service devolva um array, a res.status deve ser 200 e res.json com um array', async () => {
       sinon.stub(getProductsService, 'getProducts').resolves(listProducts);
       const req = {};
@@ -22,6 +23,7 @@ describe('', () => {
       expect(res.status.calledWith(200)).to.be.eq(true);
       expect(res.json.calledWith(listProducts)).to.be.eq(true);
     })
+
     it('caso o service devolva um objeto,a res.status deve ser 200 e res.json deve conter o objeto', async () => {
       sinon.stub(getProductsService, 'getProductsById').resolves(product);
       const req = {};
@@ -35,5 +37,17 @@ describe('', () => {
       expect(res.status.calledWith(200)).to.be.true;
       expect(res.status.calledWith(product)).to.be.true;
     })
+
+    it('', async () => {
+      sinon.stub(getProductsService, 'getProductsById').resolves(null);
+      const req = {};
+      const res = {};
+      res.sendStatus = sinon.stub();
+      req.params = { id: 10 };
+
+      await getProductsController.getProductsById(req, res);
+
+      expect(res.sendStatus.calledWith(404)).to.be.true;
+    });
   })
 })
