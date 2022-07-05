@@ -25,8 +25,8 @@ describe('testando o models', () => {
   describe('getProductsById', () => {
     //caso positivo
     it('Caso o banco devolva um objeto, a função deve retornar um objeto', async () => {
-      sinon.stub(connection, 'query').resolves(product);
-      expect(await getProductsModels.getProductsById(2)).to.eventually.deep.equal(product)
+      sinon.stub(connection, 'query').resolves([product]);
+      expect(await getProductsModels.getProductsById(2)).to.eventually.deep.eq(product)
     })
     //caso negativo
     it('Caso o banco retorne um array, a função deve retornar undefined', async () => {

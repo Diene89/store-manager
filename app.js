@@ -1,6 +1,7 @@
-require('dotenv').config();
 const express = require('express');
 require('express-async-errors');
+const error = require('./middlewares/error.middleware');
+require('dotenv').config();
 
 const productsRoutes = require('./routes/productsRoutes');
 
@@ -8,16 +9,18 @@ const app = express();
 
 app.use('/products', productsRoutes);
 
-app.use((err, _req, res, _next) => {
-  if (err) {
-    return res.status(404).json({ message: 'Product not found' });
-  }
-});
+// app.use((err, _req, res, _next) => {
+//   if (err) {
+//     return res.status(404).json({ message: 'Product not found' });
+//   }
+// });
 
 // -> não remova esse endpoint, é para o avaliador funcionar
 app.get('/', (_req, res) => {
   res.send();
 });
+
+app.use(error);
 
 // não remova essa exportação, é para o avaliador funcionar
 // você pode registrar suas rotas normalmente, como o exemplo acima
