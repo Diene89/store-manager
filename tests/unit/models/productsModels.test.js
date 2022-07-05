@@ -1,5 +1,5 @@
 const connection = require('../../../models/connection');
-const getProductsModels = require('../../../models/getProductsModels');
+const getProductsModels = require('../../../models/productsModels');
 const chaiAsPromised = require('chai-as-promised');
 const sinon = require('sinon');
 const { expect, use } = require('chai');
@@ -34,4 +34,16 @@ describe('testando o models', () => {
       expect(await getProductsModels.getProductsById(2)).to.be.undefined;
     })
   });
+
+  describe('postProducts', () => {
+    it('Deve ser rejeitado caso o connection.query rejeite', () => {
+      sinon.stub(connection, 'query').rejects();
+      expect(getProductsModels.postProduct({})).to.eventually.be.rejected;
+    })
+    it('Deve retornar o produto inserido com sucesso', () => {
+      const id = 4;
+      sinon.stub(connection, 'query').resolves([{ insertId: id }]);
+      expect(getProductsModels.postProduct({ name: 'Braceletes da Viúva Negra' })).to.eventually.equal(id);
+    })
+  })
 });

@@ -1,5 +1,5 @@
-const getProductsController = require('../../../controllers/getProductsController');
-const getProductsService = require('../../../services/getProductsService');
+const getProductsController = require('../../../controllers/productsController');
+const getProductsService = require('../../../services/productsService');
 const chaiAsPromised = require('chai-as-promised');
 const sinon = require('sinon');
 const { expect, use } = require('chai');
@@ -33,7 +33,6 @@ describe('testando o controller', () => {
       req.params = { id: 2 };
 
       await getProductsController.getProductsById(req, res);
-      console.log('ma oe', res, req)
       expect(res.status.calledWith(200)).to.be.eq(true);
       expect(res.json.calledWith(product)).to.be.eq(true);
     })

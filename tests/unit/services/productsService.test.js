@@ -1,5 +1,5 @@
-const getProductsService = require('../../../services/getProductsService');
-const getProductsModels = require('../../../models/getProductsModels');
+const getProductsService = require('../../../services/productsService');
+const getProductsModels = require('../../../models/productsModels');
 const chaiAsPromised = require('chai-as-promised');
 const sinon = require('sinon');
 const { expect, use } = require('chai');
@@ -23,9 +23,14 @@ describe('testando o service', () => {
       expect(getProductsService.getProductsById(2)).to.eventually.deep.equal(product);
     });
 
-    // it('', () => {
-    //   sinon.stub(getProductsModels, 'getProductsById').resolves(undefined);
-    //   expect(getProductsService.getProductsById(10)).to.();
-    // }); ????????????????????????????????
+    // it('', async () => {
+    //   sinon.stub(getProductsModels, 'getProductsById').rejects;
+    //   const objError = {
+    //     status: 404,
+    //     message: 'Product not found',
+    //   };
+    //   await getProductsController.getProductsById(req, res);
+    //   expect(getProductsService.getProductsById(10)).to.eventually.deep.equal(objError);
+    // });
   })
 })
