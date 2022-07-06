@@ -37,37 +37,35 @@ describe('testando o controller', () => {
       expect(res.status.calledWith(200)).to.be.eq(true);
       expect(res.json.calledWith(product)).to.be.eq(true);
     })
-
-    // it('caso não ret', async () => {
-    //   sinon.stub(getProductsService, 'getProductsById').resolves(null);
-    //   const req = {};
-    //   const res = {};
-    //   res.sendStatus = sinon.stub();
-    //   req.params = { id: 10 };
-
-    //   await getProductsController.getProductsById(req, res);
-
-    //   expect(res.sendStatus.calledWith(404)).to.be.true;
-    // });
   })
 
   describe('postProducts', () => {
-    it('Ao mandar um produto com formato errado', async () => {
+    // caso negativo
+    it('deve disparar um erro caso o productsService.validateBody também dispare', async () => {
+      sinon.stub(getProductsService, 'validateBody').rejects();
+      expect(getProductsController.postProduct({}, {})).to.eventually.be.rejected;
+    })
+    // caso negativo
+    it('deve disparar um erro caso o productsService.postProduct também dispare', async () => {
+      sinon.stub(getProductsService, 'validateBody').resolves();
+      sinon.stub(getProductsService, 'postProduct').rejects();
+      expect(getProductsController.postProduct({}, {})).to.eventually.be.rejected;
+    })
+    // caso positivo
+    it('deve chamar o res.status com 201 e o res.json com o objeto', async () => {
+      sinon.stub(getProductsService, 'postProduct').resolves(1);
+
       const req = {};
       const res = {};
+
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub();
-      req.body = { name: '' };
+      req.body = { name: 'Braceletes da Viúva Negra' };
 
-      expect(await getProductsController.postProduct(req, res)).to.rejectedWith(ValidationError)
+      await getProductsController.postProduct(req, res);
+      expect(res.status.calledWith(201)).to.be.eq(true);
+      expect(res.json.calledWith({ id: 1, name: 'Braceletes da Viúva Negra' })).to.be.eq(true);
     })
-
-    // it('Ao mandar um produto com formato correto, é possível cadastrar um produto com sucesso', async () => {
-    //   const req = {};
-    //   const res = {};
-
-    //   res.status = sinon.stub().returns(res);
-    //   res.json = sinon.stub();
-    // })
   })
+
 })

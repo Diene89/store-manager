@@ -1,6 +1,6 @@
 const Joi = require('joi');
 const productsModel = require('../models/productsModels');
-const NotFoundError = require('./NotFoundError');
+const NotFoundError = require('../middlewares/NotFoundError');
 
 const validateBody = (params) => {
   const schema = Joi.object({
@@ -18,18 +18,6 @@ const getProducts = async () => {
   const products = await productsModel.getProducts();
   return products;
 };
-
-// const getProductsById = async (id) => {
-//   const product = await productsModel.getProductsById(id);
-//   if (!product) {
-//      const objError = {
-//        status: 404,
-//        message: 'Product not found',
-//      };
-//      throw objError;  
-//   }
-//   return product;
-// };
 
 const getProductsById = async (id) => {
   const product = await productsModel.getProductsById(id);

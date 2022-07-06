@@ -8,7 +8,7 @@ const { listProducts, product } = require('../mocks/productsMock');
 use(chaiAsPromised);
 
 describe('testando o service', () => {
-  before(() => sinon.restore());
+  beforeEach(() => sinon.restore());
   
   describe('getProducts', () => {
     it('', () => {
@@ -18,20 +18,14 @@ describe('testando o service', () => {
   })
 
   describe('getProductsById', () => {
-    it('', () => {
+    it('deve retornar o objeto', () => {
       sinon.stub(productsModels, 'getProductsById').resolves(product);
       expect(productsService.getProductsById(2)).to.eventually.deep.equal(product);
     });
-
-    // it('', async () => {
-    //   sinon.stub(getProductsModels, 'getProductsById').rejects;
-    //   const objError = {
-    //     status: 404,
-    //     message: 'Product not found',
-    //   };
-    //   await getProductsController.getProductsById(req, res);
-    //   expect(getProductsService.getProductsById(10)).to.eventually.deep.equal(objError);
-    // });
+    it('deve retornar Product not found', () => {
+      sinon.stub(productsModels, 'getProductsById').resolves(undefined);
+      return expect(productsService.getProductsById(50000)).to.eventually.be.rejectedWith('Product not found');
+    })
   })
 
   describe('postProduct', () => {
@@ -46,6 +40,12 @@ describe('testando o service', () => {
       const validData = { name: 'Braceletes da Viúva Negra' };
       const value = productsService.validateBody(validData);
       expect(value).to.be.deep.eq(validData);
+    });
+
+    it('objeto inválido', () => {
+      const invalidData = { name: '' };
+      expect(() => productsService.validateBody(invalidData))
+      .to.throws('"name" is not allowed to be empty');
     });
   })
     
