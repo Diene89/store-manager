@@ -13,8 +13,8 @@ const getProductsById = async (req, res) => {
 
 const postProduct = async (req, res) => {
   const value = await productsService.validateBody(req.body);
-  const productId = await productsService.postProduct(value);
-  const productCreated = { productId, ...value };
+  const id = await productsService.postProduct(value);
+  const productCreated = { id, ...value };
   res.status(201).json(productCreated);
 };
 
