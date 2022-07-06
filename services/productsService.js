@@ -4,11 +4,9 @@ const NotFoundError = require('../middlewares/NotFoundError');
 
 const validateBody = (params) => {
   const schema = Joi.object({
-    name: Joi.string().required(),
+    name: Joi.string().required().min(5),
   });
-
   const { error, value } = schema.validate(params);
-
   if (error) throw error;
 
   return value;
