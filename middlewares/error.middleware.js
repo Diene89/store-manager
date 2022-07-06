@@ -1,7 +1,10 @@
 const error = (err, _req, res, next) => {
-  const { status, message } = err;
-  if (err) {
-    res.status(status).json({ message });
+ // const { status, message } = err;
+  // if (err.name === 'ValidationError') {
+
+  // }
+  if (err.name === 'NotFoundError') {
+    res.status(404).json({ message: err.message });
   }
   next();
 };

@@ -4,12 +4,13 @@ const chaiAsPromised = require('chai-as-promised');
 const sinon = require('sinon');
 const { expect, use } = require('chai');
 const { listProducts, product } = require('../mocks/productsMock');
+const { ValidationError } = require('joi');
 
 use(chaiAsPromised);
 
 describe('testando o controller', () => {
   beforeEach(() => sinon.restore());
-  describe('', () => {
+  describe('getProducts', () => {
 
     it('caso o service devolva um array, a res.status deve ser 200 e res.json com um array', async () => {
       sinon.stub(getProductsService, 'getProducts').resolves(listProducts);
@@ -48,5 +49,25 @@ describe('testando o controller', () => {
 
     //   expect(res.sendStatus.calledWith(404)).to.be.true;
     // });
+  })
+
+  describe('postProducts', () => {
+    it('Ao mandar um produto com formato errado', async () => {
+      const req = {};
+      const res = {};
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub();
+      req.body = { name: '' };
+
+      expect(await getProductsController.postProduct(req, res)).to.rejectedWith(ValidationError)
+    })
+
+    // it('Ao mandar um produto com formato correto, é possível cadastrar um produto com sucesso', async () => {
+    //   const req = {};
+    //   const res = {};
+
+    //   res.status = sinon.stub().returns(res);
+    //   res.json = sinon.stub();
+    // })
   })
 })

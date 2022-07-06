@@ -7,11 +7,13 @@ const productsRoutes = require('./routes/productsRoutes');
 
 const app = express();
 
+app.use(express.json());
+
 app.use('/products', productsRoutes);
 
-// app.use((err, _req, res, _next) => {
+// app.use((err, _req, _res, _next) => {
 //   if (err) {
-//     return res.status(404).json({ message: 'Product not found' });
+//     return err;
 //   }
 // });
 
