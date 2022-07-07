@@ -12,6 +12,16 @@ const validateBody = (params) => {
   return value;
 };
 
+const validateParams = (params) => {
+  const schema = Joi.object({
+    id: Joi.number().integer().required().positive(),
+  });
+  const { error, value } = schema.validate(params);
+  if (error) throw error;
+
+  return value;
+};
+
 const getProducts = async () => {
   const products = await productsModel.getProducts();
   return products;
@@ -28,9 +38,19 @@ const postProduct = async ({ name }) => {
   return productId;
 };
 
+const putProduct = async (id, name) => {
+  const editProduct = await productsModel.putProduct(id, name);
+  console.log(editProduct);
+  const success = editProduct ? editProduct[0].affectedRows > 0 : false;
+  if (!success) throw new NotFoundError('Product not found');
+  return success;
+};
+
 module.exports = {
   getProducts,
   getProductsById,
   validateBody,
   postProduct,
+  putProduct,
+  validateParams,
 };

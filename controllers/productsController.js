@@ -18,8 +18,20 @@ const postProduct = async (req, res) => {
   res.status(201).json(productCreated);
 };
 
+const putProduct = async (req, res) => {
+  const { id } = await productsService.validateParams(req.params);
+  const { name } = await productsService.validateBody(req.body);
+  await productsService.putProduct(id, name);
+  const editProduct = {
+    id,
+    name,
+  };
+  res.status(200).json(editProduct);
+};
+
 module.exports = {
   getProducts,
   getProductsById,
   postProduct,
+  putProduct,
 };
