@@ -46,4 +46,15 @@ describe('testando o models', () => {
       expect(getProductsModels.postProduct({ name: 'Braceletes da Viúva Negra' })).to.eventually.equal(id);
     })
   })
+
+  describe('putProducts', () => {
+    it('Deve ser rejeitado caso o connection.query rejeite', () => {
+      sinon.stub(connection, 'query').rejects();
+      expect(getProductsModels.putProduct(1, {})).to.eventually.be.rejected;
+    })
+    it('Deve alterar o produto com sucesso', () => {
+      sinon.stub(connection, 'query').resolves();
+      expect(getProductsModels.putProduct(1, {})).to.eventually.be.undefined;
+    })
+  })
 });

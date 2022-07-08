@@ -48,5 +48,16 @@ describe('testando o service', () => {
       .to.throws('"name" is not allowed to be empty');
     });
   })
-    
+
+  describe('putProduct', () => {
+    it('deve disparar um erro caso productsModels também dispare', () => {
+      sinon.stub(productsModels, 'putProduct').rejects();
+      expect(productsService.putProduct(1, {})).to.eventually.be.rejected;
+    })
+    it('deve retornar caso productsModel altere o produto', () => {
+      sinon.stub(productsModels, 'putProduct').resolves();
+      expect(productsService.putProduct(1, {})).to.be(true);
+    })
+  })
+   
 });
