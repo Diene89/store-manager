@@ -49,6 +49,13 @@ describe('testando o service', () => {
     });
   })
 
+  describe('validateParams', () => {
+    it('valida parametros', () => {
+      const value = productsService.validateParams({ id:2 });
+      expect(value).to.be.deep.eq({ id:2 });
+    });
+  })
+
   describe('putProduct', () => {
     it('deve disparar um erro caso productsModels também dispare', () => {
       sinon.stub(productsModels, 'putProduct').rejects();

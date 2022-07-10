@@ -18,11 +18,11 @@
     "colId": "436dd6e4-fe5b-4443-9516-5f1e47fa6347",
     "containerId": "f5049819-ab45-4632-a912-f488c66bebe3",
     "name": "findById",
-    "url": "localhost:3000/products/1",
+    "url": "localhost:3000/products/2",
     "method": "GET",
     "sortNum": 20000,
     "created": "2022-07-03T01:45:07.594Z",
-    "modified": "2022-07-06T00:04:31.462Z",
+    "modified": "2022-07-10T18:10:18.503Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -55,12 +55,12 @@
     "method": "PUT",
     "sortNum": 40000,
     "created": "2022-07-06T22:43:08.818Z",
-    "modified": "2022-07-07T04:21:56.409Z",
+    "modified": "2022-07-10T17:53:55.607Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "  {\n    \"name\": \"Martelo do Batman\"\n  }",
+      "raw": "  {\n    \"id\": 1\n  }",
       "form": []
     },
     "tests": []

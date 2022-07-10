@@ -40,8 +40,15 @@ const postProduct = async ({ name }) => {
 
 const putProduct = async (id, name) => {
   const editProduct = await productsModel.putProduct(id, name);
-  console.log(editProduct);
+ // console.log(editProduct);
   const success = editProduct ? editProduct[0].affectedRows > 0 : false;
+  if (!success) throw new NotFoundError('Product not found');
+  return success;
+};
+
+const deleteProduct = async (id) => {
+  const remove = await productsModel.deleteProduct(id);
+  const success = remove ? remove[0].affectedRows > 0 : false;
   if (!success) throw new NotFoundError('Product not found');
   return success;
 };
@@ -53,4 +60,5 @@ module.exports = {
   postProduct,
   putProduct,
   validateParams,
+  deleteProduct,
 };

@@ -67,4 +67,21 @@ describe('testando o controller', () => {
     })
   })
 
+  describe('putProduct', () => {
+    it('deve disparar um erro caso productsService.validateParams também dispare', () => {
+      sinon.stub(getProductsService, 'validateParams').rejects();
+      expect(getProductsController.putProduct({})).to.eventually.be.rejected;
+    });
+
+    it('deve disparar um erro caso productsService.validateBody também dispare', () => {
+      sinon.stub(getProductsService, 'validateBody').rejects();
+      expect(getProductsController.putProduct({})).to.eventually.be.rejected;
+    });
+
+    it('deve retornar o objeto caso a edição tenha sucesso', () => {
+      sinon.stub(getProductsService, 'validateParams').resolves();
+      sinon.stub(getProductsService, 'validateBody').resolves();
+    });
+  })
+
 })
